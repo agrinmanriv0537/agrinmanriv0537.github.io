@@ -11,50 +11,41 @@
   <title>Alexander Grinman Rivera — Computational Engineering</title>
 
   <style>
-    *, *::before, *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
       --bg: #080a0f;
       --bg-deep: #05070b;
-      --surface: rgba(255, 255, 255, 0.035);
-      --surface-strong: rgba(255, 255, 255, 0.06);
-      --border: rgba(255, 255, 255, 0.09);
-      --border-strong: rgba(255, 255, 255, 0.16);
+      --surface: rgba(255,255,255,.035);
+      --surface-strong: rgba(255,255,255,.06);
+      --border: rgba(255,255,255,.09);
+      --border-strong: rgba(255,255,255,.16);
       --text: #f2efe9;
       --muted: #9296a0;
       --muted-strong: #c0c3ca;
       --accent: #f47b35;
       --accent-bright: #ff955c;
-      --accent-soft: rgba(244, 123, 53, 0.12);
-      --accent-border: rgba(244, 123, 53, 0.28);
+      --accent-soft: rgba(244,123,53,.12);
+      --accent-border: rgba(244,123,53,.28);
       --accent-text: #ffd8c1;
       --mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
       --sans: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      --radius: 16px;
-      --shadow: 0 24px 70px rgba(0, 0, 0, 0.28);
-      --fast: 150ms cubic-bezier(.2, .8, .2, 1);
-      --medium: 260ms cubic-bezier(.2, .8, .2, 1);
       --page-width: 1220px;
       --pointer-x: 50vw;
       --pointer-y: 32vh;
+      --fast: 150ms cubic-bezier(.2,.8,.2,1);
+      --medium: 260ms cubic-bezier(.2,.8,.2,1);
     }
 
-    html {
-      scroll-behavior: smooth;
-      background: var(--bg-deep);
-    }
+    html { scroll-behavior: smooth; background: var(--bg-deep); }
 
     body {
       min-height: 100vh;
       overflow-x: hidden;
       color: var(--text);
       background:
-        radial-gradient(700px circle at var(--pointer-x) var(--pointer-y), rgba(244, 123, 53, 0.055), transparent 56%),
-        linear-gradient(180deg, rgba(255, 255, 255, 0.012), transparent 18%),
+        radial-gradient(700px circle at var(--pointer-x) var(--pointer-y), rgba(244,123,53,.055), transparent 56%),
+        linear-gradient(180deg, rgba(255,255,255,.012), transparent 18%),
         var(--bg);
       font-family: var(--sans);
       font-size: 17px;
@@ -65,43 +56,20 @@
     body::before {
       position: fixed;
       inset: 0;
-      z-index: -2;
+      z-index: 0;
       background-image:
-        linear-gradient(rgba(255, 255, 255, 0.018) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255, 255, 255, 0.018) 1px, transparent 1px);
+        linear-gradient(rgba(255,255,255,.018) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.018) 1px, transparent 1px);
       background-size: 52px 52px;
       content: "";
-      mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.8), transparent 82%);
+      mask-image: linear-gradient(to bottom, rgba(0,0,0,.8), transparent 82%);
       pointer-events: none;
     }
 
-    body::after {
-      position: fixed;
-      inset: 0;
-      z-index: 20;
-      border: 1px solid rgba(255, 255, 255, 0.025);
-      content: "";
-      pointer-events: none;
-    }
-
-    a {
-      color: inherit;
-    }
-
-    button,
-    a {
-      -webkit-tap-highlight-color: transparent;
-    }
-
-    ::selection {
-      color: #fff;
-      background: rgba(244, 123, 53, 0.45);
-    }
-
-    :focus-visible {
-      outline: 2px solid var(--accent-bright);
-      outline-offset: 4px;
-    }
+    a { color: inherit; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    ::selection { color: #fff; background: rgba(244,123,53,.45); }
+    :focus-visible { outline: 2px solid var(--accent-bright); outline-offset: 4px; }
 
     .skip-link {
       position: fixed;
@@ -117,17 +85,15 @@
       transform: translateY(-160%);
       transition: transform var(--fast);
     }
-
-    .skip-link:focus {
-      transform: translateY(0);
-    }
+    .skip-link:focus { transform: translateY(0); }
 
     #ascii-field {
       position: fixed;
       inset: 0;
-      z-index: -1;
+      z-index: 0;
       width: 100%;
       height: 100%;
+      opacity: .95;
       pointer-events: none;
     }
 
@@ -138,53 +104,34 @@
       z-index: 30;
       width: 96px;
       height: 96px;
-      border: 1px solid rgba(244, 123, 53, 0.12);
+      border: 1px solid rgba(244,123,53,.11);
       border-radius: 50%;
       opacity: 0;
       pointer-events: none;
-      transform: translate3d(-50%, -50%, 0);
+      transform: translate3d(-50%,-50%,0);
       transition: width var(--medium), height var(--medium), border-color var(--medium), opacity 180ms ease;
       will-change: transform;
     }
-
     .cursor-halo::before,
-    .cursor-halo::after {
-      position: absolute;
-      border-radius: inherit;
-      content: "";
-    }
-
-    .cursor-halo::before {
-      inset: 13px;
-      border: 1px solid rgba(255, 255, 255, 0.045);
-    }
-
+    .cursor-halo::after { position: absolute; border-radius: inherit; content: ""; }
+    .cursor-halo::before { inset: 13px; border: 1px solid rgba(255,255,255,.045); }
     .cursor-halo::after {
       inset: -18px;
-      background: radial-gradient(circle, rgba(244, 123, 53, 0.07), transparent 67%);
+      background: radial-gradient(circle, rgba(244,123,53,.07), transparent 67%);
       filter: blur(5px);
     }
+    .cursor-halo.is-moving { width: 116px; height: 116px; border-color: rgba(244,123,53,.2); }
 
-    .cursor-halo.is-moving {
-      width: 116px;
-      height: 116px;
-      border-color: rgba(244, 123, 53, 0.2);
-    }
-
-    .site-shell {
-      position: relative;
-      z-index: 1;
-    }
+    .site-shell { position: relative; z-index: 1; }
 
     .site-nav {
       position: sticky;
       top: 0;
       z-index: 100;
       border-bottom: 1px solid var(--border);
-      background: rgba(8, 10, 15, 0.76);
+      background: rgba(8,10,15,.76);
       backdrop-filter: blur(18px) saturate(130%);
     }
-
     .nav-inner {
       display: flex;
       width: min(100%, var(--page-width));
@@ -194,7 +141,6 @@
       align-items: center;
       justify-content: space-between;
     }
-
     .logo {
       display: inline-flex;
       gap: 9px;
@@ -202,10 +148,9 @@
       color: var(--text);
       font-family: var(--mono);
       font-size: 14px;
-      letter-spacing: 0.04em;
+      letter-spacing: .04em;
       text-decoration: none;
     }
-
     .logo-mark {
       display: grid;
       width: 28px;
@@ -216,30 +161,18 @@
       place-items: center;
       transition: color var(--fast), background var(--fast), transform var(--fast);
     }
-
-    .logo:hover .logo-mark {
-      color: #fff;
-      background: var(--accent);
-      transform: rotate(8deg);
-    }
-
-    .nav-links {
-      display: flex;
-      gap: clamp(16px, 3vw, 34px);
-      align-items: center;
-    }
-
+    .logo:hover .logo-mark { color: #fff; background: var(--accent); transform: rotate(8deg); }
+    .nav-links { display: flex; gap: clamp(16px,3vw,34px); align-items: center; }
     .nav-links a {
       position: relative;
       color: var(--muted);
       font-family: var(--mono);
       font-size: 11px;
-      letter-spacing: 0.11em;
+      letter-spacing: .11em;
       text-decoration: none;
       text-transform: uppercase;
       transition: color var(--fast);
     }
-
     .nav-links a::after {
       position: absolute;
       right: 0;
@@ -252,51 +185,36 @@
       transform-origin: left;
       transition: transform var(--fast);
     }
-
-    .nav-links a:hover {
-      color: var(--text);
-    }
-
-    .nav-links a:hover::after {
-      transform: scaleX(1);
-    }
+    .nav-links a:hover { color: var(--text); }
+    .nav-links a:hover::after { transform: scaleX(1); }
 
     .hero {
       display: grid;
-      grid-template-columns: minmax(0, 1.55fr) minmax(310px, 0.75fr);
-      width: min(100%, var(--page-width));
+      grid-template-columns: minmax(0,1.55fr) minmax(310px,.75fr);
+      width: min(100%,var(--page-width));
       min-height: calc(100svh - 70px);
       margin: 0 auto;
       border-right: 1px solid var(--border);
       border-left: 1px solid var(--border);
     }
-
-    .hero-main,
-    .hero-aside {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-
+    .hero-main, .hero-aside { display: flex; flex-direction: column; justify-content: center; }
     .hero-main {
       position: relative;
-      padding: clamp(72px, 9vw, 128px) clamp(28px, 6vw, 76px);
+      padding: clamp(72px,9vw,128px) clamp(28px,6vw,76px);
       overflow: hidden;
       border-right: 1px solid var(--border);
     }
-
     .hero-main::after {
       position: absolute;
       right: 28px;
       bottom: 22px;
-      color: rgba(255, 255, 255, 0.15);
+      color: rgba(255,255,255,.15);
       content: "[ move cursor ]";
       font-family: var(--mono);
       font-size: 10px;
-      letter-spacing: 0.12em;
+      letter-spacing: .12em;
       text-transform: uppercase;
     }
-
     .hero-kicker {
       display: flex;
       gap: 12px;
@@ -305,48 +223,27 @@
       color: var(--accent);
       font-family: var(--mono);
       font-size: 12px;
-      letter-spacing: 0.13em;
+      letter-spacing: .13em;
       text-transform: uppercase;
     }
-
-    .hero-kicker::before {
-      width: 34px;
-      height: 1px;
-      background: currentColor;
-      content: "";
-    }
-
+    .hero-kicker::before { width: 34px; height: 1px; background: currentColor; content: ""; }
     .hero-name {
       max-width: 850px;
-      font-size: clamp(3.9rem, 8.3vw, 7.2rem);
+      font-size: clamp(3.9rem,8.3vw,7.2rem);
       font-weight: 690;
-      letter-spacing: -0.067em;
-      line-height: 0.88;
+      letter-spacing: -.067em;
+      line-height: .88;
     }
-
-    .hero-name .accent {
-      color: var(--accent);
-    }
-
+    .accent { color: var(--accent); }
     .hero-summary {
       max-width: 735px;
       margin-top: 32px;
       color: var(--muted-strong);
-      font-size: clamp(18px, 2vw, 21px);
+      font-size: clamp(18px,2vw,21px);
       line-height: 1.75;
     }
-
-    .hero-summary strong {
-      color: var(--text);
-      font-weight: 620;
-    }
-
-    .hero-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin-top: 34px;
-    }
+    .hero-summary strong { color: var(--text); font-weight: 620; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 34px; }
 
     .button {
       display: inline-flex;
@@ -360,44 +257,18 @@
       font-family: var(--mono);
       font-size: 11px;
       font-weight: 700;
-      letter-spacing: 0.08em;
+      letter-spacing: .08em;
       text-decoration: none;
       text-transform: uppercase;
       transition: color var(--fast), background var(--fast), border-color var(--fast), transform var(--fast), box-shadow var(--fast);
     }
+    .button:hover { transform: translateY(-2px); }
+    .button-primary { color: #fff; background: var(--accent); box-shadow: 0 12px 34px rgba(244,123,53,.16); }
+    .button-primary:hover { background: var(--accent-bright); box-shadow: 0 16px 38px rgba(244,123,53,.22); }
+    .button-secondary { border-color: var(--border-strong); color: var(--muted-strong); background: rgba(255,255,255,.02); }
+    .button-secondary:hover { border-color: var(--accent-border); color: var(--accent-text); background: var(--accent-soft); }
 
-    .button:hover {
-      transform: translateY(-2px);
-    }
-
-    .button-primary {
-      color: #fff;
-      background: var(--accent);
-      box-shadow: 0 12px 34px rgba(244, 123, 53, 0.16);
-    }
-
-    .button-primary:hover {
-      background: var(--accent-bright);
-      box-shadow: 0 16px 38px rgba(244, 123, 53, 0.22);
-    }
-
-    .button-secondary {
-      border-color: var(--border-strong);
-      color: var(--muted-strong);
-      background: rgba(255, 255, 255, 0.02);
-    }
-
-    .button-secondary:hover {
-      border-color: var(--accent-border);
-      color: var(--accent-text);
-      background: var(--accent-soft);
-    }
-
-    .hero-aside {
-      padding: 38px clamp(24px, 4vw, 42px);
-      background: rgba(5, 7, 11, 0.24);
-    }
-
+    .hero-aside { padding: 38px clamp(24px,4vw,42px); background: rgba(5,7,11,.24); }
     .status {
       display: flex;
       gap: 10px;
@@ -406,606 +277,164 @@
       color: var(--muted-strong);
       font-family: var(--mono);
       font-size: 11px;
-      letter-spacing: 0.08em;
+      letter-spacing: .08em;
       text-transform: uppercase;
     }
-
     .status-dot {
       position: relative;
       width: 7px;
       height: 7px;
       border-radius: 50%;
       background: var(--accent);
-      box-shadow: 0 0 18px rgba(244, 123, 53, 0.65);
+      box-shadow: 0 0 18px rgba(244,123,53,.65);
     }
+    .status-dot::after { position: absolute; inset: -5px; border: 1px solid rgba(244,123,53,.26); border-radius: inherit; content: ""; }
+    .info-row { padding: 20px 0; border-bottom: 1px solid var(--border); transition: padding-left var(--fast), border-color var(--fast); }
+    .info-row:last-child { border-bottom: 0; }
+    .info-row:hover { padding-left: 7px; border-color: var(--accent-border); }
+    .info-label { color: var(--muted); font-family: var(--mono); font-size: 10px; letter-spacing: .12em; text-transform: uppercase; }
+    .info-value { margin-top: 5px; color: var(--text); font-size: 17px; font-weight: 630; line-height: 1.45; }
+    .info-note { margin-top: 3px; color: var(--muted); font-size: 13px; line-height: 1.55; }
 
-    .status-dot::after {
-      position: absolute;
-      inset: -5px;
-      border: 1px solid rgba(244, 123, 53, 0.26);
-      border-radius: inherit;
-      content: "";
-    }
-
-    .info-row {
-      padding: 20px 0;
-      border-bottom: 1px solid var(--border);
-      transition: padding-left var(--fast), border-color var(--fast);
-    }
-
-    .info-row:last-child {
-      border-bottom: 0;
-    }
-
-    .info-row:hover {
-      padding-left: 7px;
-      border-color: var(--accent-border);
-    }
-
-    .info-label {
-      color: var(--muted);
-      font-family: var(--mono);
-      font-size: 10px;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-    }
-
-    .info-value {
-      margin-top: 5px;
-      color: var(--text);
-      font-size: 17px;
-      font-weight: 630;
-      line-height: 1.45;
-    }
-
-    .info-note {
-      margin-top: 3px;
-      color: var(--muted);
-      font-size: 13px;
-      line-height: 1.55;
-    }
-
-    main {
-      border-top: 1px solid var(--border);
-    }
-
+    main { border-top: 1px solid var(--border); }
     .section {
-      width: min(100%, var(--page-width));
+      width: min(100%,var(--page-width));
       margin: 0 auto;
-      padding: clamp(70px, 9vw, 112px) clamp(24px, 5vw, 58px);
+      padding: clamp(70px,9vw,112px) clamp(24px,5vw,58px);
       border-right: 1px solid var(--border);
       border-bottom: 1px solid var(--border);
       border-left: 1px solid var(--border);
     }
+    .section-heading { display: grid; grid-template-columns: 76px minmax(0,1fr); margin-bottom: clamp(38px,5vw,58px); align-items: baseline; }
+    .section-number { color: var(--accent); font-family: var(--mono); font-size: 11px; letter-spacing: .1em; }
+    .section-title { font-size: clamp(2.1rem,4vw,3.7rem); font-weight: 670; letter-spacing: -.045em; line-height: 1; }
+    .section-intro { max-width: 740px; margin: -24px 0 48px 76px; color: var(--muted-strong); font-size: 17px; }
 
-    .section-heading {
-      display: grid;
-      grid-template-columns: 76px minmax(0, 1fr);
-      margin-bottom: clamp(38px, 5vw, 58px);
-      align-items: baseline;
-    }
-
-    .section-number {
-      color: var(--accent);
-      font-family: var(--mono);
-      font-size: 11px;
-      letter-spacing: 0.1em;
-    }
-
-    .section-title {
-      font-size: clamp(2.1rem, 4vw, 3.7rem);
-      font-weight: 670;
-      letter-spacing: -0.045em;
-      line-height: 1;
-    }
-
-    .section-intro {
-      max-width: 740px;
-      margin: -24px 0 48px 76px;
-      color: var(--muted-strong);
-      font-size: 17px;
-    }
-
-    .timeline {
-      margin-left: 76px;
-    }
-
+    .timeline { margin-left: 76px; }
     .role {
       display: grid;
-      grid-template-columns: minmax(215px, 0.7fr) minmax(0, 1.5fr);
+      grid-template-columns: minmax(215px,.7fr) minmax(0,1.5fr);
       padding: 34px 0;
       border-top: 1px solid var(--border);
-      gap: clamp(28px, 5vw, 74px);
+      gap: clamp(28px,5vw,74px);
       transition: border-color var(--fast);
     }
-
-    .role:last-child {
-      border-bottom: 1px solid var(--border);
-    }
-
-    .role:hover {
-      border-color: var(--accent-border);
-    }
-
-    .role-date {
-      color: var(--accent);
-      font-family: var(--mono);
-      font-size: 11px;
-      letter-spacing: 0.07em;
-      text-transform: uppercase;
-    }
-
-    .role-title {
-      margin-top: 7px;
-      font-size: 20px;
-      font-weight: 680;
-      letter-spacing: -0.02em;
-    }
-
-    .role-company {
-      margin-top: 2px;
-      color: var(--muted);
-      font-size: 14px;
-    }
-
-    .role-points {
-      display: grid;
-      gap: 11px;
-      list-style: none;
-    }
-
-    .role-points li {
-      position: relative;
-      padding-left: 21px;
-      color: var(--muted-strong);
-      font-size: 15px;
-      line-height: 1.75;
-    }
-
-    .role-points li::before {
-      position: absolute;
-      top: 0;
-      left: 0;
-      color: var(--accent);
-      content: "↳";
-      font-family: var(--mono);
-    }
+    .role:last-child { border-bottom: 1px solid var(--border); }
+    .role:hover { border-color: var(--accent-border); }
+    .role-date { color: var(--accent); font-family: var(--mono); font-size: 11px; letter-spacing: .07em; text-transform: uppercase; }
+    .role-title { margin-top: 7px; font-size: 20px; font-weight: 680; letter-spacing: -.02em; }
+    .role-company { margin-top: 2px; color: var(--muted); font-size: 14px; }
+    .role-points { display: grid; gap: 11px; list-style: none; }
+    .role-points li { position: relative; padding-left: 21px; color: var(--muted-strong); font-size: 15px; line-height: 1.75; }
+    .role-points li::before { position: absolute; top: 0; left: 0; color: var(--accent); content: "↳"; font-family: var(--mono); }
 
     .project-grid {
       display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-template-columns: repeat(2,minmax(0,1fr));
       margin-left: 76px;
       border-top: 1px solid var(--border);
       border-left: 1px solid var(--border);
     }
-
     .project-card {
       position: relative;
       min-height: 290px;
-      padding: clamp(26px, 4vw, 42px);
+      padding: clamp(26px,4vw,42px);
       overflow: hidden;
       border-right: 1px solid var(--border);
       border-bottom: 1px solid var(--border);
-      background: rgba(255, 255, 255, 0.018);
+      background: rgba(255,255,255,.018);
       transition: background var(--medium), transform var(--medium), box-shadow var(--medium);
     }
-
     .project-card::after {
       position: absolute;
       right: -70px;
       bottom: -70px;
       width: 170px;
       height: 170px;
-      border: 1px solid rgba(244, 123, 53, 0.1);
+      border: 1px solid rgba(244,123,53,.1);
       border-radius: 50%;
       content: "";
       transition: width var(--medium), height var(--medium), border-color var(--medium);
     }
+    .project-card:hover { z-index: 2; background: rgba(255,255,255,.045); box-shadow: 0 24px 70px rgba(0,0,0,.28); transform: translateY(-4px); }
+    .project-card:hover::after { width: 205px; height: 205px; border-color: rgba(244,123,53,.22); }
+    .project-index { color: var(--accent); font-family: var(--mono); font-size: 10px; letter-spacing: .1em; }
+    .project-name { max-width: 360px; margin-top: 34px; font-size: clamp(1.45rem,3vw,2rem); font-weight: 680; letter-spacing: -.035em; line-height: 1.08; }
+    .project-description { max-width: 480px; margin-top: 17px; color: var(--muted-strong); font-size: 15px; line-height: 1.75; }
+    .project-tech { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 22px; }
+    .tag { padding: 5px 8px; border: 1px solid var(--border); border-radius: 6px; color: var(--muted); font-family: var(--mono); font-size: 9px; letter-spacing: .06em; text-transform: uppercase; }
 
-    .project-card:hover {
-      z-index: 2;
-      background: rgba(255, 255, 255, 0.045);
-      box-shadow: var(--shadow);
-      transform: translateY(-4px);
-    }
+    .skills-layout { display: grid; grid-template-columns: minmax(0,1.2fr) minmax(280px,.8fr); margin-left: 76px; gap: clamp(40px,7vw,100px); }
+    .skill-group + .skill-group { margin-top: 30px; }
+    .skill-label { margin-bottom: 12px; color: var(--muted); font-family: var(--mono); font-size: 10px; letter-spacing: .12em; text-transform: uppercase; }
+    .skill-list { display: flex; flex-wrap: wrap; gap: 9px; }
+    .skill { padding: 9px 12px; border: 1px solid var(--border); border-radius: 8px; color: var(--muted-strong); background: rgba(255,255,255,.018); font-size: 13px; transition: color var(--fast), border-color var(--fast), background var(--fast), transform var(--fast); }
+    .skill:hover { border-color: var(--accent-border); color: var(--accent-text); background: var(--accent-soft); transform: translateY(-2px); }
+    .credential-list { border-top: 1px solid var(--border); }
+    .credential { padding: 18px 0; border-bottom: 1px solid var(--border); }
+    .credential-name { color: var(--text); font-size: 14px; font-weight: 640; line-height: 1.5; }
+    .credential-meta { margin-top: 4px; color: var(--muted); font-family: var(--mono); font-size: 10px; line-height: 1.6; }
 
-    .project-card:hover::after {
-      width: 205px;
-      height: 205px;
-      border-color: rgba(244, 123, 53, 0.22);
-    }
+    .contact-section { padding-top: clamp(84px,11vw,138px); padding-bottom: clamp(84px,11vw,138px); }
+    .contact-layout { display: grid; grid-template-columns: minmax(0,1.25fr) minmax(300px,.75fr); gap: clamp(42px,8vw,105px); align-items: end; }
+    .contact-kicker { color: var(--accent); font-family: var(--mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; }
+    .contact-title { max-width: 760px; margin-top: 16px; font-size: clamp(3.2rem,7vw,6.7rem); font-weight: 690; letter-spacing: -.067em; line-height: .9; }
+    .contact-copy { max-width: 610px; margin-top: 26px; color: var(--muted-strong); font-size: 17px; }
+    .contact-links { border-top: 1px solid var(--border); }
+    .contact-link { display: flex; padding: 17px 2px; border-bottom: 1px solid var(--border); align-items: center; justify-content: space-between; text-decoration: none; transition: padding var(--fast), border-color var(--fast); }
+    .contact-link:hover { padding-right: 8px; padding-left: 8px; border-color: var(--accent-border); }
+    .contact-link-label { display: block; color: var(--muted); font-family: var(--mono); font-size: 10px; letter-spacing: .1em; text-transform: uppercase; }
+    .contact-link-value { display: block; margin-top: 2px; color: var(--muted-strong); font-size: 13px; }
+    .contact-link-arrow { color: var(--accent); font-family: var(--mono); transition: transform var(--fast); }
+    .contact-link:hover .contact-link-arrow { transform: translateX(3px); }
 
-    .project-index {
-      color: var(--accent);
-      font-family: var(--mono);
-      font-size: 10px;
-      letter-spacing: 0.1em;
-    }
+    footer { width: min(100%,var(--page-width)); margin: 0 auto; padding: 24px 28px; border-right: 1px solid var(--border); border-left: 1px solid var(--border); }
+    .footer-inner { display: flex; gap: 20px; align-items: center; justify-content: space-between; color: var(--muted); font-family: var(--mono); font-size: 10px; letter-spacing: .06em; }
 
-    .project-name {
-      max-width: 360px;
-      margin-top: 34px;
-      font-size: clamp(1.45rem, 3vw, 2rem);
-      font-weight: 680;
-      letter-spacing: -0.035em;
-      line-height: 1.08;
-    }
-
-    .project-description {
-      max-width: 480px;
-      margin-top: 17px;
-      color: var(--muted-strong);
-      font-size: 15px;
-      line-height: 1.75;
-    }
-
-    .project-tech {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 7px;
-      margin-top: 22px;
-    }
-
-    .tag {
-      padding: 5px 8px;
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      color: var(--muted);
-      font-family: var(--mono);
-      font-size: 9px;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-    }
-
-    .skills-layout {
-      display: grid;
-      grid-template-columns: minmax(0, 1.2fr) minmax(280px, 0.8fr);
-      margin-left: 76px;
-      gap: clamp(40px, 7vw, 100px);
-    }
-
-    .skill-group + .skill-group {
-      margin-top: 30px;
-    }
-
-    .skill-label {
-      margin-bottom: 12px;
-      color: var(--muted);
-      font-family: var(--mono);
-      font-size: 10px;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-    }
-
-    .skill-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 9px;
-    }
-
-    .skill {
-      padding: 9px 12px;
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      color: var(--muted-strong);
-      background: rgba(255, 255, 255, 0.018);
-      font-size: 13px;
-      transition: color var(--fast), border-color var(--fast), background var(--fast), transform var(--fast);
-    }
-
-    .skill:hover {
-      border-color: var(--accent-border);
-      color: var(--accent-text);
-      background: var(--accent-soft);
-      transform: translateY(-2px);
-    }
-
-    .credential-list {
-      border-top: 1px solid var(--border);
-    }
-
-    .credential {
-      padding: 18px 0;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .credential-name {
-      color: var(--text);
-      font-size: 14px;
-      font-weight: 640;
-      line-height: 1.5;
-    }
-
-    .credential-meta {
-      margin-top: 4px;
-      color: var(--muted);
-      font-family: var(--mono);
-      font-size: 10px;
-      line-height: 1.6;
-    }
-
-    .contact-section {
-      padding-top: clamp(84px, 11vw, 138px);
-      padding-bottom: clamp(84px, 11vw, 138px);
-    }
-
-    .contact-layout {
-      display: grid;
-      grid-template-columns: minmax(0, 1.25fr) minmax(300px, 0.75fr);
-      gap: clamp(42px, 8vw, 105px);
-      align-items: end;
-    }
-
-    .contact-kicker {
-      color: var(--accent);
-      font-family: var(--mono);
-      font-size: 11px;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-    }
-
-    .contact-title {
-      max-width: 760px;
-      margin-top: 16px;
-      font-size: clamp(3.2rem, 7vw, 6.7rem);
-      font-weight: 690;
-      letter-spacing: -0.067em;
-      line-height: 0.9;
-    }
-
-    .contact-title span {
-      color: var(--accent);
-    }
-
-    .contact-copy {
-      max-width: 610px;
-      margin-top: 26px;
-      color: var(--muted-strong);
-      font-size: 17px;
-    }
-
-    .contact-links {
-      border-top: 1px solid var(--border);
-    }
-
-    .contact-link {
-      display: flex;
-      padding: 17px 2px;
-      border-bottom: 1px solid var(--border);
-      align-items: center;
-      justify-content: space-between;
-      text-decoration: none;
-      transition: color var(--fast), padding var(--fast), border-color var(--fast);
-    }
-
-    .contact-link:hover {
-      padding-right: 8px;
-      padding-left: 8px;
-      border-color: var(--accent-border);
-    }
-
-    .contact-link-label {
-      color: var(--muted);
-      font-family: var(--mono);
-      font-size: 10px;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-    }
-
-    .contact-link-value {
-      margin-top: 2px;
-      color: var(--muted-strong);
-      font-size: 13px;
-    }
-
-    .contact-link-arrow {
-      color: var(--accent);
-      font-family: var(--mono);
-      transition: transform var(--fast);
-    }
-
-    .contact-link:hover .contact-link-arrow {
-      transform: translateX(3px);
-    }
-
-    footer {
-      width: min(100%, var(--page-width));
-      margin: 0 auto;
-      padding: 24px 28px;
-      border-right: 1px solid var(--border);
-      border-left: 1px solid var(--border);
-    }
-
-    .footer-inner {
-      display: flex;
-      gap: 20px;
-      align-items: center;
-      justify-content: space-between;
-      color: var(--muted);
-      font-family: var(--mono);
-      font-size: 10px;
-      letter-spacing: 0.06em;
-    }
-
-    .reveal {
-      opacity: 0;
-      transform: translateY(18px);
-      transition: opacity 520ms ease, transform 520ms cubic-bezier(.2, .8, .2, 1);
-    }
-
-    .reveal.in-view {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    .reveal { opacity: 0; transform: translateY(18px); transition: opacity 520ms ease, transform 520ms cubic-bezier(.2,.8,.2,1); }
+    .reveal.in-view { opacity: 1; transform: translateY(0); }
 
     @media (max-width: 980px) {
-      .hero {
-        grid-template-columns: 1fr;
-        min-height: auto;
-      }
-
-      .hero-main {
-        min-height: calc(100svh - 70px);
-        border-right: 0;
-        border-bottom: 1px solid var(--border);
-      }
-
-      .hero-aside {
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 0 28px;
-      }
-
-      .status {
-        grid-column: 1 / -1;
-      }
-
-      .role {
-        grid-template-columns: 1fr;
-        gap: 18px;
-      }
-
-      .skills-layout,
-      .contact-layout {
-        grid-template-columns: 1fr;
-      }
-
-      .contact-links {
-        max-width: 620px;
-      }
+      .hero { grid-template-columns: 1fr; min-height: auto; }
+      .hero-main { min-height: calc(100svh - 70px); border-right: 0; border-bottom: 1px solid var(--border); }
+      .hero-aside { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 0 28px; }
+      .status { grid-column: 1 / -1; }
+      .role { grid-template-columns: 1fr; gap: 18px; }
+      .skills-layout, .contact-layout { grid-template-columns: 1fr; }
+      .contact-links { max-width: 620px; }
     }
 
     @media (max-width: 720px) {
-      body {
-        font-size: 16px;
-      }
-
-      .nav-inner {
-        height: 62px;
-        padding: 0 17px;
-      }
-
-      .logo-name {
-        display: none;
-      }
-
-      .nav-links {
-        gap: 15px;
-      }
-
-      .nav-links a {
-        font-size: 9px;
-      }
-
-      .nav-links a:nth-child(3) {
-        display: none;
-      }
-
-      .hero {
-        border-right: 0;
-        border-left: 0;
-      }
-
-      .hero-main {
-        min-height: calc(100svh - 62px);
-        padding: 70px 22px 80px;
-      }
-
-      .hero-main::after {
-        display: none;
-      }
-
-      .hero-name {
-        font-size: clamp(3.45rem, 18vw, 5.3rem);
-      }
-
-      .hero-summary {
-        font-size: 17px;
-      }
-
-      .hero-aside {
-        grid-template-columns: 1fr;
-        padding: 30px 22px;
-      }
-
-      .section {
-        padding: 72px 22px;
-        border-right: 0;
-        border-left: 0;
-      }
-
-      .section-heading {
-        grid-template-columns: 50px minmax(0, 1fr);
-      }
-
-      .section-intro,
-      .timeline,
-      .project-grid,
-      .skills-layout {
-        margin-left: 0;
-      }
-
-      .section-intro {
-        margin-top: -20px;
-      }
-
-      .project-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .project-card {
-        min-height: 250px;
-      }
-
-      .contact-title {
-        font-size: clamp(3.2rem, 16vw, 5.2rem);
-      }
-
-      footer {
-        padding: 22px;
-        border-right: 0;
-        border-left: 0;
-      }
-
-      .footer-inner {
-        align-items: flex-start;
-        flex-direction: column;
-        gap: 8px;
-      }
-
-      .cursor-halo {
-        display: none;
-      }
+      body { font-size: 16px; }
+      .nav-inner { height: 62px; padding: 0 17px; }
+      .logo-name { display: none; }
+      .nav-links { gap: 15px; }
+      .nav-links a { font-size: 9px; }
+      .nav-links a:nth-child(3) { display: none; }
+      .hero { border-right: 0; border-left: 0; }
+      .hero-main { min-height: calc(100svh - 62px); padding: 70px 22px 80px; }
+      .hero-main::after { display: none; }
+      .hero-name { font-size: clamp(3.45rem,18vw,5.3rem); }
+      .hero-summary { font-size: 17px; }
+      .hero-aside { grid-template-columns: 1fr; padding: 30px 22px; }
+      .section { padding: 72px 22px; border-right: 0; border-left: 0; }
+      .section-heading { grid-template-columns: 50px minmax(0,1fr); }
+      .section-intro, .timeline, .project-grid, .skills-layout { margin-left: 0; }
+      .section-intro { margin-top: -20px; }
+      .project-grid { grid-template-columns: 1fr; }
+      .project-card { min-height: 250px; }
+      .contact-title { font-size: clamp(3.2rem,16vw,5.2rem); }
+      footer { padding: 22px; border-right: 0; border-left: 0; }
+      .footer-inner { align-items: flex-start; flex-direction: column; gap: 8px; }
+      .cursor-halo { display: none; }
     }
 
-    @media (pointer: coarse) {
-      .cursor-halo,
-      #ascii-field {
-        display: none;
-      }
-    }
-
+    @media (pointer: coarse) { .cursor-halo, #ascii-field { display: none; } }
     @media (prefers-reduced-motion: reduce) {
-      html {
-        scroll-behavior: auto;
-      }
-
-      *, *::before, *::after {
-        scroll-behavior: auto !important;
-        transition-duration: 0.01ms !important;
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-      }
-
-      .reveal {
-        opacity: 1;
-        transform: none;
-      }
-
-      .cursor-halo,
-      #ascii-field {
-        display: none;
-      }
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; }
+      .reveal { opacity: 1; transform: none; }
+      .cursor-halo, #ascii-field { display: none; }
     }
   </style>
 
@@ -1020,18 +449,8 @@
         "https://github.com/agrinmanriv0537",
         "https://www.linkedin.com/in/alexander-grinman-rivera/"
       ],
-      "affiliation": {
-        "@type": "CollegeOrUniversity",
-        "name": "The University of Texas at Austin"
-      },
-      "knowsAbout": [
-        "Computational Engineering",
-        "Process Control",
-        "Simulation",
-        "Robotics",
-        "Cybersecurity",
-        "Software Engineering"
-      ]
+      "affiliation": { "@type": "CollegeOrUniversity", "name": "The University of Texas at Austin" },
+      "knowsAbout": ["Computational Engineering", "Process Control", "Simulation", "Robotics", "Cybersecurity", "Software Engineering"]
     }
   </script>
 </head>
@@ -1073,49 +492,22 @@
 
       <aside class="hero-aside reveal" aria-label="Profile details">
         <div class="status"><span class="status-dot" aria-hidden="true"></span> Summer 2026</div>
-        <div class="info-row">
-          <div class="info-label">Current role</div>
-          <div class="info-value">Process Control Intern</div>
-          <div class="info-note">Suzano Packaging</div>
-        </div>
-        <div class="info-row">
-          <div class="info-label">Education</div>
-          <div class="info-value">B.S. Computational Engineering</div>
-          <div class="info-note">Cockrell School of Engineering · GPA 3.54</div>
-        </div>
-        <div class="info-row">
-          <div class="info-label">Focus</div>
-          <div class="info-value">Controls, simulation, and software</div>
-          <div class="info-note">Python · PLC systems · data-driven modeling</div>
-        </div>
-        <div class="info-row">
-          <div class="info-label">Business studies</div>
-          <div class="info-value">MSI Business Foundations</div>
-          <div class="info-note">McCombs School of Business</div>
-        </div>
-        <div class="info-row">
-          <div class="info-label">Additional</div>
-          <div class="info-value">Active Top Secret clearance</div>
-          <div class="info-note">English and Spanish</div>
-        </div>
+        <div class="info-row"><div class="info-label">Current role</div><div class="info-value">Process Control Intern</div><div class="info-note">Suzano Packaging</div></div>
+        <div class="info-row"><div class="info-label">Education</div><div class="info-value">B.S. Computational Engineering</div><div class="info-note">Cockrell School of Engineering · GPA 3.54</div></div>
+        <div class="info-row"><div class="info-label">Focus</div><div class="info-value">Controls, simulation, and software</div><div class="info-note">Python · PLC systems · data-driven modeling</div></div>
+        <div class="info-row"><div class="info-label">Business studies</div><div class="info-value">MSI Business Foundations</div><div class="info-note">McCombs School of Business</div></div>
+        <div class="info-row"><div class="info-label">Additional</div><div class="info-value">Active Top Secret clearance</div><div class="info-note">English and Spanish</div></div>
       </aside>
     </header>
 
     <main id="main-content">
       <section class="section reveal" id="experience">
-        <div class="section-heading">
-          <span class="section-number">01 /</span>
-          <h2 class="section-title">Experience</h2>
-        </div>
+        <div class="section-heading"><span class="section-number">01 /</span><h2 class="section-title">Experience</h2></div>
         <p class="section-intro">Work across industrial controls, vehicle systems, cybersecurity, and competition robotics.</p>
 
         <div class="timeline">
           <article class="role">
-            <div>
-              <div class="role-date">Summer 2026</div>
-              <h3 class="role-title">Process Control Intern</h3>
-              <div class="role-company">Suzano Packaging</div>
-            </div>
+            <div><div class="role-date">Summer 2026</div><h3 class="role-title">Process Control Intern</h3><div class="role-company">Suzano Packaging</div></div>
             <ul class="role-points">
               <li>Building tools that use historical process data and legacy control logic to support mill simulation.</li>
               <li>Working across Python, PLC logic, industrial data, and process-control systems.</li>
@@ -1124,11 +516,7 @@
           </article>
 
           <article class="role">
-            <div>
-              <div class="role-date">Jun 2025 — Present</div>
-              <h3 class="role-title">Software Team Member</h3>
-              <div class="role-company">Longhorn Racing · Baja SAE</div>
-            </div>
+            <div><div class="role-date">Jun 2025 — Present</div><h3 class="role-title">Software Team Member</h3><div class="role-company">Longhorn Racing · Baja SAE</div></div>
             <ul class="role-points">
               <li>Developing PyQt tools to replay logs and inspect wheel speed, steering, pedal, GPS, and IMU data.</li>
               <li>Helping define sensor interfaces and debug hardware-software integration during vehicle testing.</li>
@@ -1137,11 +525,7 @@
           </article>
 
           <article class="role">
-            <div>
-              <div class="role-date">Jun 2024 — Present</div>
-              <h3 class="role-title">Cybersecurity Intern</h3>
-              <div class="role-company">Booz Allen Hamilton</div>
-            </div>
+            <div><div class="role-date">Jun 2024 — Present</div><h3 class="role-title">Cybersecurity Intern</h3><div class="role-company">Booz Allen Hamilton</div></div>
             <ul class="role-points">
               <li>Built and maintained Python tooling and REST API integrations in a cleared environment.</li>
               <li>Worked in GitLab and Scrum with engineers and analysts on cybersecurity workflows.</li>
@@ -1150,11 +534,7 @@
           </article>
 
           <article class="role">
-            <div>
-              <div class="role-date">Oct 2021 — May 2024</div>
-              <h3 class="role-title">Lead Programmer &amp; President</h3>
-              <div class="role-company">FRC Robotics Team 5572</div>
-            </div>
+            <div><div class="role-date">Oct 2021 — May 2024</div><h3 class="role-title">Lead Programmer &amp; President</h3><div class="role-company">FRC Robotics Team 5572</div></div>
             <ul class="role-points">
               <li>Led C++ and Java development for competition robots, including vision, PID control, AprilTag localization, and autonomous paths.</li>
               <li>Managed the codebase, ran technical reviews, and mentored new programmers.</li>
@@ -1165,125 +545,48 @@
       </section>
 
       <section class="section reveal" id="work">
-        <div class="section-heading">
-          <span class="section-number">02 /</span>
-          <h2 class="section-title">Selected work</h2>
-        </div>
+        <div class="section-heading"><span class="section-number">02 /</span><h2 class="section-title">Selected work</h2></div>
         <p class="section-intro">A few projects that show how I approach software, data, and physical systems.</p>
 
         <div class="project-grid">
           <article class="project-card">
-            <div class="project-index">PROJECT 01</div>
-            <h3 class="project-name">Paper mill simulation</h3>
+            <div class="project-index">PROJECT 01</div><h3 class="project-name">Paper mill simulation</h3>
             <p class="project-description">A data-driven simulator for studying how a mill responds to changing inputs. Python handles model fitting, validation, and scenario runs; PLC software provides a familiar operator-facing view.</p>
-            <div class="project-tech">
-              <span class="tag">Python</span>
-              <span class="tag">System identification</span>
-              <span class="tag">Process control</span>
-            </div>
+            <div class="project-tech"><span class="tag">Python</span><span class="tag">System identification</span><span class="tag">Process control</span></div>
           </article>
-
           <article class="project-card">
-            <div class="project-index">PROJECT 02</div>
-            <h3 class="project-name">APACS to OpenPLC conversion</h3>
+            <div class="project-index">PROJECT 02</div><h3 class="project-name">APACS to OpenPLC conversion</h3>
             <p class="project-description">A conversion pipeline that translates legacy APACS control logic into OpenPLC function block diagrams, preserving the structure needed for review and simulation work.</p>
-            <div class="project-tech">
-              <span class="tag">PLC logic</span>
-              <span class="tag">OpenPLC</span>
-              <span class="tag">Automation</span>
-            </div>
+            <div class="project-tech"><span class="tag">PLC logic</span><span class="tag">OpenPLC</span><span class="tag">Automation</span></div>
           </article>
-
           <article class="project-card">
-            <div class="project-index">PROJECT 03</div>
-            <h3 class="project-name">Baja telemetry dashboard</h3>
+            <div class="project-index">PROJECT 03</div><h3 class="project-name">Baja telemetry dashboard</h3>
             <p class="project-description">A desktop application for replaying vehicle logs and plotting sensor channels so the team can compare runs, find anomalies, and understand what happened on track.</p>
-            <div class="project-tech">
-              <span class="tag">PyQt6</span>
-              <span class="tag">Pandas</span>
-              <span class="tag">Vehicle data</span>
-            </div>
+            <div class="project-tech"><span class="tag">PyQt6</span><span class="tag">Pandas</span><span class="tag">Vehicle data</span></div>
           </article>
-
           <article class="project-card">
-            <div class="project-index">PROJECT 04</div>
-            <h3 class="project-name">Robotics vision and control</h3>
+            <div class="project-index">PROJECT 04</div><h3 class="project-name">Robotics vision and control</h3>
             <p class="project-description">Competition robot software for target detection, AprilTag positioning, closed-loop control, and autonomous movement under real match constraints.</p>
-            <div class="project-tech">
-              <span class="tag">C++</span>
-              <span class="tag">Java</span>
-              <span class="tag">Computer vision</span>
-            </div>
+            <div class="project-tech"><span class="tag">C++</span><span class="tag">Java</span><span class="tag">Computer vision</span></div>
           </article>
         </div>
       </section>
 
       <section class="section reveal" id="skills">
-        <div class="section-heading">
-          <span class="section-number">03 /</span>
-          <h2 class="section-title">Skills</h2>
-        </div>
-
+        <div class="section-heading"><span class="section-number">03 /</span><h2 class="section-title">Skills</h2></div>
         <div class="skills-layout">
           <div>
-            <div class="skill-group">
-              <div class="skill-label">Programming</div>
-              <div class="skill-list">
-                <span class="skill">Python</span>
-                <span class="skill">C++</span>
-                <span class="skill">Java</span>
-                <span class="skill">JavaScript</span>
-                <span class="skill">HTML / CSS</span>
-              </div>
-            </div>
-
-            <div class="skill-group">
-              <div class="skill-label">Engineering and data</div>
-              <div class="skill-list">
-                <span class="skill">Process control</span>
-                <span class="skill">System identification</span>
-                <span class="skill">PLCs</span>
-                <span class="skill">OpenPLC</span>
-                <span class="skill">APACS</span>
-                <span class="skill">Modbus</span>
-                <span class="skill">Telemetry</span>
-                <span class="skill">Pandas</span>
-                <span class="skill">PyQt6</span>
-              </div>
-            </div>
-
-            <div class="skill-group">
-              <div class="skill-label">Software practice</div>
-              <div class="skill-list">
-                <span class="skill">Git</span>
-                <span class="skill">GitHub</span>
-                <span class="skill">GitLab</span>
-                <span class="skill">REST APIs</span>
-                <span class="skill">Docker</span>
-                <span class="skill">Agile / Scrum</span>
-              </div>
-            </div>
+            <div class="skill-group"><div class="skill-label">Programming</div><div class="skill-list"><span class="skill">Python</span><span class="skill">C++</span><span class="skill">Java</span><span class="skill">JavaScript</span><span class="skill">HTML / CSS</span></div></div>
+            <div class="skill-group"><div class="skill-label">Engineering and data</div><div class="skill-list"><span class="skill">Process control</span><span class="skill">System identification</span><span class="skill">PLCs</span><span class="skill">OpenPLC</span><span class="skill">APACS</span><span class="skill">Modbus</span><span class="skill">Telemetry</span><span class="skill">Pandas</span><span class="skill">PyQt6</span></div></div>
+            <div class="skill-group"><div class="skill-label">Software practice</div><div class="skill-list"><span class="skill">Git</span><span class="skill">GitHub</span><span class="skill">GitLab</span><span class="skill">REST APIs</span><span class="skill">Docker</span><span class="skill">Agile / Scrum</span></div></div>
           </div>
-
           <div>
             <div class="skill-label">Credentials</div>
             <div class="credential-list">
-              <div class="credential">
-                <div class="credential-name">Certified Entry-Level Python Programmer</div>
-                <div class="credential-meta">Python Institute · April 2024</div>
-              </div>
-              <div class="credential">
-                <div class="credential-name">Microsoft Technology Associate: Python</div>
-                <div class="credential-meta">Microsoft · April 2022</div>
-              </div>
-              <div class="credential">
-                <div class="credential-name">Business Foundations Program</div>
-                <div class="credential-meta">McCombs School of Business</div>
-              </div>
-              <div class="credential">
-                <div class="credential-name">Active Top Secret clearance</div>
-                <div class="credential-meta">Current</div>
-              </div>
+              <div class="credential"><div class="credential-name">Certified Entry-Level Python Programmer</div><div class="credential-meta">Python Institute · April 2024</div></div>
+              <div class="credential"><div class="credential-name">Microsoft Technology Associate: Python</div><div class="credential-meta">Microsoft · April 2022</div></div>
+              <div class="credential"><div class="credential-name">Business Foundations Program</div><div class="credential-meta">McCombs School of Business</div></div>
+              <div class="credential"><div class="credential-name">Active Top Secret clearance</div><div class="credential-meta">Current</div></div>
             </div>
           </div>
         </div>
@@ -1291,63 +594,26 @@
 
       <section class="section contact-section reveal" id="contact">
         <div class="contact-layout">
-          <div>
-            <div class="contact-kicker">Contact</div>
-            <h2 class="contact-title">Let’s build<br /><span>something useful.</span></h2>
-            <p class="contact-copy">Have a role, project, or technical problem where my background fits? Send me a note.</p>
-          </div>
-
+          <div><div class="contact-kicker">Contact</div><h2 class="contact-title">Let’s build<br /><span class="accent">something useful.</span></h2><p class="contact-copy">Have a role, project, or technical problem where my background fits? Send me a note.</p></div>
           <div class="contact-links">
-            <a class="contact-link" href="mailto:agrinmanriv@gmail.com">
-              <span>
-                <span class="contact-link-label">Email</span>
-                <span class="contact-link-value">agrinmanriv@gmail.com</span>
-              </span>
-              <span class="contact-link-arrow" aria-hidden="true">→</span>
-            </a>
-            <a class="contact-link" href="tel:+12109075934">
-              <span>
-                <span class="contact-link-label">Phone</span>
-                <span class="contact-link-value">(210) 907-5934</span>
-              </span>
-              <span class="contact-link-arrow" aria-hidden="true">→</span>
-            </a>
-            <a class="contact-link" href="https://github.com/agrinmanriv0537" target="_blank" rel="noopener noreferrer">
-              <span>
-                <span class="contact-link-label">GitHub</span>
-                <span class="contact-link-value">agrinmanriv0537</span>
-              </span>
-              <span class="contact-link-arrow" aria-hidden="true">↗</span>
-            </a>
-            <a class="contact-link" href="https://www.linkedin.com/in/alexander-grinman-rivera/" target="_blank" rel="noopener noreferrer">
-              <span>
-                <span class="contact-link-label">LinkedIn</span>
-                <span class="contact-link-value">alexander-grinman-rivera</span>
-              </span>
-              <span class="contact-link-arrow" aria-hidden="true">↗</span>
-            </a>
+            <a class="contact-link" href="mailto:agrinmanriv@gmail.com"><span><span class="contact-link-label">Email</span><span class="contact-link-value">agrinmanriv@gmail.com</span></span><span class="contact-link-arrow" aria-hidden="true">→</span></a>
+            <a class="contact-link" href="tel:+12109075934"><span><span class="contact-link-label">Phone</span><span class="contact-link-value">(210) 907-5934</span></span><span class="contact-link-arrow" aria-hidden="true">→</span></a>
+            <a class="contact-link" href="https://github.com/agrinmanriv0537" target="_blank" rel="noopener noreferrer"><span><span class="contact-link-label">GitHub</span><span class="contact-link-value">agrinmanriv0537</span></span><span class="contact-link-arrow" aria-hidden="true">↗</span></a>
+            <a class="contact-link" href="https://www.linkedin.com/in/alexander-grinman-rivera/" target="_blank" rel="noopener noreferrer"><span><span class="contact-link-label">LinkedIn</span><span class="contact-link-value">alexander-grinman-rivera</span></span><span class="contact-link-arrow" aria-hidden="true">↗</span></a>
           </div>
         </div>
       </section>
     </main>
 
-    <footer>
-      <div class="footer-inner">
-        <span>© 2026 Alexander Grinman Rivera</span>
-        <span>Austin, Texas · Built without a framework</span>
-      </div>
-    </footer>
+    <footer><div class="footer-inner"><span>© 2026 Alexander Grinman Rivera</span><span>Austin, Texas · Built without a framework</span></div></footer>
   </div>
 
   <script>
     (() => {
       const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       const finePointer = window.matchMedia('(pointer: fine)').matches;
-      const root = document.documentElement;
-      const halo = document.querySelector('.cursor-halo');
-      const canvas = document.getElementById('ascii-field');
-
       const revealItems = document.querySelectorAll('.reveal');
+
       if (reduceMotion || !('IntersectionObserver' in window)) {
         revealItems.forEach((item) => item.classList.add('in-view'));
       } else {
@@ -1358,41 +624,42 @@
               observer.unobserve(entry.target);
             }
           });
-        }, { threshold: 0.12, rootMargin: '0px 0px -48px 0px' });
-
+        }, { threshold: .12, rootMargin: '0px 0px -48px 0px' });
         revealItems.forEach((item) => observer.observe(item));
       }
 
-      if (reduceMotion || !finePointer || !canvas || !halo) return;
+      if (reduceMotion || !finePointer) return;
 
-      const context = canvas.getContext('2d');
-      if (!context) return;
+      const root = document.documentElement;
+      const canvas = document.getElementById('ascii-field');
+      const halo = document.querySelector('.cursor-halo');
+      const context = canvas?.getContext('2d');
+      if (!canvas || !halo || !context) return;
 
-      const glyphs = ['0', '1', '/', '\\', '{', '}', '[', ']', '<', '>', '+', '*', ':', '.', '_'];
+      const glyphs = ['0','1','/','\\','{','}','[',']','<','>','+','*',':','.','_','|'];
       const particles = [];
-      const monoFont = getComputedStyle(root).getPropertyValue('--mono').trim() || 'monospace';
       const pointer = {
-        x: window.innerWidth * 0.5,
-        y: window.innerHeight * 0.34,
-        renderX: window.innerWidth * 0.5,
-        renderY: window.innerHeight * 0.34,
-        lastX: window.innerWidth * 0.5,
-        lastY: window.innerHeight * 0.34,
+        x: innerWidth * .5,
+        y: innerHeight * .34,
+        renderX: innerWidth * .5,
+        renderY: innerHeight * .34,
+        lastX: innerWidth * .5,
+        lastY: innerHeight * .34,
         speed: 0,
-        active: false,
-        lastMove: 0
+        lastMove: 0,
+        active: false
       };
 
-      let width = window.innerWidth;
-      let height = window.innerHeight;
-      let dpr = Math.min(window.devicePixelRatio || 1, 1.75);
-      let animationFrame = 0;
+      let width = innerWidth;
+      let height = innerHeight;
+      let dpr = Math.min(devicePixelRatio || 1, 1.75);
       let previousTime = performance.now();
+      let frameId = 0;
 
-      function resizeCanvas() {
-        width = window.innerWidth;
-        height = window.innerHeight;
-        dpr = Math.min(window.devicePixelRatio || 1, 1.75);
+      function resize() {
+        width = innerWidth;
+        height = innerHeight;
+        dpr = Math.min(devicePixelRatio || 1, 1.75);
         canvas.width = Math.round(width * dpr);
         canvas.height = Math.round(height * dpr);
         canvas.style.width = `${width}px`;
@@ -1400,119 +667,132 @@
         context.setTransform(dpr, 0, 0, dpr, 0, 0);
       }
 
-      function addParticle(x, y, speed) {
+      function addParticle(speed) {
         const angle = Math.random() * Math.PI * 2;
-        const radius = 24 + Math.random() * 48;
-        const life = 520 + Math.random() * 520;
+        const radius = 34 + Math.random() * 48;
         particles.push({
-          x: x + Math.cos(angle) * radius,
-          y: y + Math.sin(angle) * radius,
-          vx: Math.cos(angle) * (0.03 + Math.random() * 0.09) + (Math.random() - 0.5) * speed * 0.008,
-          vy: Math.sin(angle) * (0.03 + Math.random() * 0.09) + (Math.random() - 0.5) * speed * 0.008,
+          x: pointer.x + Math.cos(angle) * radius,
+          y: pointer.y + Math.sin(angle) * radius,
+          vx: Math.cos(angle) * (.025 + Math.random() * .075) + (Math.random() - .5) * speed * .006,
+          vy: Math.sin(angle) * (.025 + Math.random() * .075) + (Math.random() - .5) * speed * .006,
           glyph: glyphs[Math.floor(Math.random() * glyphs.length)],
           age: 0,
-          life,
+          life: 620 + Math.random() * 620,
           size: 8 + Math.random() * 3,
-          rotation: (Math.random() - 0.5) * 0.42
+          rotation: (Math.random() - .5) * .45
         });
-
-        if (particles.length > 125) particles.shift();
+        if (particles.length > 150) particles.shift();
       }
 
-      function handlePointerMove(event) {
+      function onMove(event) {
         const now = performance.now();
         const dx = event.clientX - pointer.lastX;
         const dy = event.clientY - pointer.lastY;
-        const elapsed = Math.max(8, now - pointer.lastMove);
-        const distance = Math.hypot(dx, dy);
-        const instantSpeed = distance / elapsed * 16;
+        const elapsed = pointer.lastMove ? Math.max(8, now - pointer.lastMove) : 16;
+        const instantSpeed = Math.hypot(dx, dy) / elapsed * 16;
 
         pointer.x = event.clientX;
         pointer.y = event.clientY;
         pointer.lastX = event.clientX;
         pointer.lastY = event.clientY;
-        pointer.speed = Math.min(34, pointer.speed * 0.45 + instantSpeed * 0.55);
-        pointer.active = true;
+        pointer.speed = Math.min(38, pointer.speed * .42 + instantSpeed * .58);
         pointer.lastMove = now;
+        pointer.active = true;
 
-        root.style.setProperty('--pointer-x', `${event.clientX}px`);
-        root.style.setProperty('--pointer-y', `${event.clientY}px`);
+        root.style.setProperty('--pointer-x', `${pointer.x}px`);
+        root.style.setProperty('--pointer-y', `${pointer.y}px`);
         halo.style.opacity = '1';
 
-        const count = Math.min(5, Math.max(0, Math.floor(pointer.speed / 4.2)));
-        for (let index = 0; index < count; index += 1) {
-          addParticle(pointer.x, pointer.y, pointer.speed);
+        const count = Math.min(6, Math.max(1, Math.floor(pointer.speed / 3.2)));
+        for (let i = 0; i < count; i += 1) addParticle(pointer.speed);
+      }
+
+      function drawRing(now) {
+        if (!pointer.active) return;
+        const idle = now - pointer.lastMove;
+        const fade = Math.max(0, 1 - idle / 850);
+        if (fade <= 0) return;
+
+        const speedFactor = Math.min(1, pointer.speed / 12);
+        const count = 18;
+        const baseRadius = 43 + speedFactor * 8;
+        context.save();
+        context.font = `9px ${getComputedStyle(root).getPropertyValue('--mono') || 'monospace'}`;
+        context.textAlign = 'center';
+        context.textBaseline = 'middle';
+
+        for (let i = 0; i < count; i += 1) {
+          const angle = (i / count) * Math.PI * 2 + now * .00015;
+          const wobble = Math.sin(now * .002 + i * 1.7) * 5;
+          const radius = baseRadius + wobble;
+          const x = pointer.renderX + Math.cos(angle) * radius;
+          const y = pointer.renderY + Math.sin(angle) * radius;
+          const alpha = (.055 + speedFactor * .14) * fade;
+          context.fillStyle = `rgba(255, 178, 126, ${alpha})`;
+          context.fillText(glyphs[(i * 5 + Math.floor(now / 180)) % glyphs.length], x, y);
         }
+        context.restore();
       }
 
-      function handlePointerLeave() {
-        pointer.active = false;
-        halo.style.opacity = '0';
-      }
-
-      function draw(timestamp) {
-        const delta = Math.min(34, timestamp - previousTime);
-        previousTime = timestamp;
-
+      function draw(now) {
+        const delta = Math.min(34, now - previousTime);
+        previousTime = now;
         context.clearRect(0, 0, width, height);
+        context.globalCompositeOperation = 'lighter';
 
-        pointer.renderX += (pointer.x - pointer.renderX) * 0.15;
-        pointer.renderY += (pointer.y - pointer.renderY) * 0.15;
-        pointer.speed *= 0.91;
+        pointer.renderX += (pointer.x - pointer.renderX) * .16;
+        pointer.renderY += (pointer.y - pointer.renderY) * .16;
+        pointer.speed *= .91;
 
         halo.style.transform = `translate3d(${pointer.renderX}px, ${pointer.renderY}px, 0) translate(-50%, -50%)`;
-        halo.classList.toggle('is-moving', pointer.speed > 4.5);
+        halo.classList.toggle('is-moving', pointer.speed > 4);
 
-        for (let index = particles.length - 1; index >= 0; index -= 1) {
-          const particle = particles[index];
-          particle.age += delta;
+        drawRing(now);
 
-          if (particle.age >= particle.life) {
-            particles.splice(index, 1);
+        for (let i = particles.length - 1; i >= 0; i -= 1) {
+          const p = particles[i];
+          p.age += delta;
+          if (p.age >= p.life) {
+            particles.splice(i, 1);
             continue;
           }
 
-          particle.x += particle.vx * delta;
-          particle.y += particle.vy * delta;
-          particle.vy -= 0.0008 * delta;
-
-          const progress = particle.age / particle.life;
-          const alpha = Math.sin(progress * Math.PI) * 0.2;
+          p.x += p.vx * delta;
+          p.y += p.vy * delta;
+          p.vy -= .00065 * delta;
+          const progress = p.age / p.life;
+          const alpha = Math.sin(progress * Math.PI) * .28;
 
           context.save();
-          context.translate(particle.x, particle.y);
-          context.rotate(particle.rotation);
-          context.font = `${particle.size}px ${monoFont}`;
+          context.translate(p.x, p.y);
+          context.rotate(p.rotation);
+          context.font = `${p.size}px ${getComputedStyle(root).getPropertyValue('--mono') || 'monospace'}`;
           context.textAlign = 'center';
           context.textBaseline = 'middle';
           context.fillStyle = `rgba(244, 154, 96, ${alpha})`;
-          context.fillText(particle.glyph, 0, 0);
+          context.fillText(p.glyph, 0, 0);
           context.restore();
         }
 
-        if (pointer.active && timestamp - pointer.lastMove > 120) {
-          pointer.speed *= 0.82;
-        }
-
-        animationFrame = requestAnimationFrame(draw);
+        if (pointer.active && now - pointer.lastMove > 120) pointer.speed *= .82;
+        frameId = requestAnimationFrame(draw);
       }
 
-      resizeCanvas();
-      window.addEventListener('resize', resizeCanvas, { passive: true });
-      window.addEventListener('pointermove', handlePointerMove, { passive: true });
-      document.documentElement.addEventListener('mouseleave', handlePointerLeave);
-      document.documentElement.addEventListener('mouseenter', () => {
-        pointer.active = true;
+      resize();
+      addEventListener('resize', resize, { passive: true });
+      addEventListener('pointermove', onMove, { passive: true });
+      document.documentElement.addEventListener('mouseleave', () => {
+        pointer.active = false;
+        halo.style.opacity = '0';
       });
+      document.documentElement.addEventListener('mouseenter', () => { pointer.active = true; });
 
-      animationFrame = requestAnimationFrame(draw);
-
+      frameId = requestAnimationFrame(draw);
       document.addEventListener('visibilitychange', () => {
-        if (document.hidden) {
-          cancelAnimationFrame(animationFrame);
-        } else {
+        if (document.hidden) cancelAnimationFrame(frameId);
+        else {
           previousTime = performance.now();
-          animationFrame = requestAnimationFrame(draw);
+          frameId = requestAnimationFrame(draw);
         }
       });
     })();
