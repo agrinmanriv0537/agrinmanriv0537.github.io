@@ -75,7 +75,7 @@
       z-index: 100;
       display: flex;
       align-items: center;
-      justify-content: space-between;
+      justify-content: center;
       height: 68px;
       padding: 0 2rem;
       border-bottom: 0.5px solid var(--border);
@@ -84,6 +84,8 @@
     }
 
     .logo {
+      position: absolute;
+      left: 2rem;
       font-family: var(--mono);
       font-size: 16px;
       letter-spacing: 0.05em;
@@ -95,6 +97,7 @@
 
     .nav-links {
       display: flex;
+      justify-content: center;
       gap: 2rem;
     }
     .nav-links a {
@@ -535,6 +538,7 @@
     @media (max-width: 700px) {
       body { font-size: 16px; }
       nav { padding: 0 1.1rem; height: 60px; }
+      .logo { display: none; }
       .nav-links { gap: 1rem; }
       .nav-links a { font-size: 11px; }
       .hero-left, .section, .contact-bar, footer {
@@ -841,8 +845,8 @@
       const lightGlyphs = ['.', ':', '·', '`'];
       const cells = [];
       const pointer = { x: -1000, y: -1000, lastX: -1000, lastY: -1000, speed: 0, active: false };
-      const spacing = 22;
-      const radius = 118;
+      const spacing = 20;
+      const radius = 132;
       let width = 0;
       let height = 0;
       let dpr = 1;
@@ -896,7 +900,7 @@
         pointer.lastY = event.clientY;
         pointer.active = true;
 
-        const movementBoost = 0.55 + Math.min(1, pointer.speed / 18) * 0.45;
+        const movementBoost = 0.68 + Math.min(1, pointer.speed / 18) * 0.32;
         for (const cell of cells) {
           const distance = Math.hypot(cell.x - pointer.x, cell.y - pointer.y);
           if (distance < radius) {
@@ -914,8 +918,8 @@
         ctx.textBaseline = 'middle';
 
         for (const cell of cells) {
-          cell.energy = Math.max(0, cell.energy - delta * 0.00072);
-          if (cell.energy < 0.018) continue;
+          cell.energy = Math.max(0, cell.energy - delta * 0.00062);
+          if (cell.energy < 0.015) continue;
 
           let glyph;
           let size;
@@ -923,16 +927,16 @@
 
           if (cell.energy > 0.66) {
             glyph = cell.dense;
-            size = 11;
-            alpha = 0.11 + cell.energy * 0.18;
+            size = 12;
+            alpha = 0.14 + cell.energy * 0.22;
           } else if (cell.energy > 0.28) {
             glyph = cell.medium;
-            size = 9;
-            alpha = 0.055 + cell.energy * 0.13;
+            size = 10;
+            alpha = 0.075 + cell.energy * 0.16;
           } else {
             glyph = cell.light;
-            size = 7;
-            alpha = 0.018 + cell.energy * 0.11;
+            size = 8;
+            alpha = 0.028 + cell.energy * 0.13;
           }
 
           ctx.font = `${size}px ${getComputedStyle(document.documentElement).getPropertyValue('--mono') || 'monospace'}`;
