@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Portfolio of Alexander Grinman Rivera, a computational engineering student working in process control, simulation, software, and robotics." />
   <title>Alexander Grinman Rivera — Portfolio</title>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -31,6 +32,7 @@
 
     html { scroll-behavior: smooth; }
     body {
+      position: relative;
       font-family: var(--sans);
       background: radial-gradient(circle at top, rgba(249,115,22,0.05), transparent 28%), var(--bg);
       color: var(--text);
@@ -41,6 +43,20 @@
     }
 
     a { color: inherit; }
+
+    #ascii-field {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+
+    nav, .hero, .wrap, footer {
+      position: relative;
+      z-index: 1;
+    }
 
     .reveal {
       opacity: 0;
@@ -59,7 +75,7 @@
       z-index: 100;
       display: flex;
       align-items: center;
-      justify-content: space-between;
+      justify-content: center;
       height: 68px;
       padding: 0 2rem;
       border-bottom: 0.5px solid var(--border);
@@ -68,6 +84,8 @@
     }
 
     .logo {
+      position: absolute;
+      left: 2rem;
       font-family: var(--mono);
       font-size: 16px;
       letter-spacing: 0.05em;
@@ -79,6 +97,7 @@
 
     .nav-links {
       display: flex;
+      justify-content: center;
       gap: 2rem;
     }
     .nav-links a {
@@ -507,49 +526,41 @@
     }
 
     @media (max-width: 1000px) {
-      .hero {
-        grid-template-columns: 1fr;
-      }
+      .hero { grid-template-columns: 1fr; }
       .hero-left {
         border-right: none;
         border-bottom: 0.5px solid var(--border);
       }
-      .hero-right {
-        padding-top: 2rem;
-      }
-      .three-col, .two-col, .contact-bar {
-        grid-template-columns: 1fr;
-      }
+      .hero-right { padding-top: 2rem; }
+      .three-col, .two-col, .contact-bar { grid-template-columns: 1fr; }
     }
 
     @media (max-width: 700px) {
       body { font-size: 16px; }
-      nav {
-        padding: 0 1.1rem;
-        height: 60px;
-      }
+      nav { padding: 0 1.1rem; height: 60px; }
+      .logo { display: none; }
       .nav-links { gap: 1rem; }
       .nav-links a { font-size: 11px; }
       .hero-left, .section, .contact-bar, footer {
         padding-left: 1.25rem;
         padding-right: 1.25rem;
       }
-      .hero-left {
-        padding-top: 3.5rem;
-        padding-bottom: 3.5rem;
-      }
+      .hero-left { padding-top: 3.5rem; padding-bottom: 3.5rem; }
       .hero-right { padding: 1.5rem 1.25rem; }
       .hero-desc { font-size: 18px; }
       .section-title { font-size: 1.8rem; }
       .contact-headline { font-size: 2.4rem; }
-      footer {
-        flex-direction: column;
-        align-items: flex-start;
-      }
+      footer { flex-direction: column; align-items: flex-start; }
+    }
+
+    @media (pointer: coarse), (prefers-reduced-motion: reduce) {
+      #ascii-field { display: none; }
     }
   </style>
 </head>
 <body>
+  <canvas id="ascii-field" aria-hidden="true"></canvas>
+
   <nav>
     <a class="logo" href="#top">agr_</a>
     <div class="nav-links">
@@ -564,7 +575,7 @@
     <div class="hero-left reveal">
       <div class="hero-eyebrow">Computational Engineering · UT Austin</div>
       <h1 class="hero-name">Alexander<br>Grinman<br><span>Rivera.</span></h1>
-      <p class="hero-desc">Student engineer building at the intersection of software, cybersecurity, and real hardware — from off-road vehicle telemetry to security-focused engineering work.</p>
+      <p class="hero-desc">I build software for physical systems. My current work focuses on process control and paper mill simulation, while my work at UT Austin includes telemetry tools for an off-road race car.</p>
       <div class="hero-actions">
         <a class="btn-fill" href="mailto:agrinmanriv@gmail.com">Contact Me</a>
         <a class="btn-line" href="https://github.com/agrinmanriv0537" target="_blank" rel="noreferrer">GitHub ↗</a>
@@ -573,6 +584,11 @@
     </div>
 
     <div class="hero-right reveal">
+      <div class="info-row">
+        <div class="info-key">Current Role</div>
+        <div class="info-val">Process Control Intern</div>
+        <div class="info-sub">Suzano Packaging · Summer 2026</div>
+      </div>
       <div class="info-row">
         <div class="info-key">Degree</div>
         <div class="info-val">B.S. Computational Engineering</div>
@@ -587,11 +603,6 @@
         <div class="info-key">Clearance</div>
         <div class="info-val">TS · Active</div>
         <div class="info-sub">Professional cleared environment</div>
-      </div>
-      <div class="info-row">
-        <div class="info-key">Location</div>
-        <div class="info-val">Austin, TX</div>
-        <div class="info-sub">Open to technical opportunities</div>
       </div>
       <div class="info-row">
         <div class="info-key">Languages</div>
@@ -610,14 +621,27 @@
 
       <div class="job">
         <div class="job-meta">
+          <div class="job-title">Process Control Intern</div>
+          <div class="job-date">Summer 2026</div>
+        </div>
+        <div class="job-org">Suzano Packaging</div>
+        <div class="job-pts">
+          <div class="job-pt">Build tools that use historical process data and legacy control logic to support paper mill simulation.</div>
+          <div class="job-pt">Work across Python, PLC logic, industrial data, and process-control systems.</div>
+          <div class="job-pt">Develop a practical workflow for fitting models, validating them, and testing operating scenarios away from live equipment.</div>
+        </div>
+      </div>
+
+      <div class="job">
+        <div class="job-meta">
           <div class="job-title">Software Team Member</div>
           <div class="job-date">Jun 2025 — Present</div>
         </div>
         <div class="job-org">Longhorn Racing: Baja SAE · UT Austin</div>
         <div class="job-pts">
-          <div class="job-pt">Work on telemetry, logging, and software-related systems for an off-road Baja SAE vehicle.</div>
-          <div class="job-pt">Sensor integration, debugging, and real-world testing in a fast-paced team environment.</div>
-          <div class="job-pt">Collaborate across disciplines during design reviews, build days, and system integration.</div>
+          <div class="job-pt">Develop PyQt tools to replay logs and inspect wheel speed, steering, pedal, GPS, and IMU data.</div>
+          <div class="job-pt">Help define sensor interfaces and debug hardware-software integration during vehicle testing.</div>
+          <div class="job-pt">Coordinate with mechanical and electrical teams so recorded data is useful for design decisions.</div>
         </div>
       </div>
 
@@ -628,9 +652,9 @@
         </div>
         <div class="job-org">Booz Allen Hamilton</div>
         <div class="job-pts">
-          <div class="job-pt">Support cybersecurity solutions using Agile and SCRUM in a professional defense environment.</div>
-          <div class="job-pt">Worked with malware analysis, REST API integration, GitLab, and Python-based tooling.</div>
-          <div class="job-pt">Trusted with projects requiring a maintained Top Secret clearance.</div>
+          <div class="job-pt">Build and maintain Python tooling and REST API integrations in a cleared environment.</div>
+          <div class="job-pt">Work in GitLab and Scrum with engineers and analysts on cybersecurity workflows.</div>
+          <div class="job-pt">Document technical work so other teams can review, operate, and extend it.</div>
         </div>
       </div>
 
@@ -641,8 +665,8 @@
         </div>
         <div class="job-org">iCode</div>
         <div class="job-pts">
-          <div class="job-pt">Taught object-oriented programming and data structures through hands-on, interactive lessons.</div>
-          <div class="job-pt">Built student confidence by breaking down complex technical concepts into usable skills.</div>
+          <div class="job-pt">Taught object-oriented programming and data structures through hands-on lessons.</div>
+          <div class="job-pt">Broke down technical concepts into clear, usable steps for students with different experience levels.</div>
         </div>
       </div>
 
@@ -653,9 +677,9 @@
         </div>
         <div class="job-org">FRC Robotics Team 5572</div>
         <div class="job-pts">
-          <div class="job-pt">Led programming work for competition robotics projects in C++ and Java.</div>
-          <div class="job-pt">Worked on target detection, PID tuning, AprilTag positioning, trajectory calculations, and repository management.</div>
-          <div class="job-pt">Balanced technical leadership with mentoring and team coordination.</div>
+          <div class="job-pt">Led C++ and Java development for competition robots, including vision, PID control, AprilTag localization, and autonomous paths.</div>
+          <div class="job-pt">Managed the codebase, ran technical reviews, and mentored new programmers.</div>
+          <div class="job-pt">Stayed hands-on with programming while also handling team leadership.</div>
         </div>
       </div>
     </section>
@@ -669,18 +693,18 @@
       <div class="three-col">
         <div class="proj-card">
           <div class="proj-num">P — 01</div>
-          <div class="proj-name">Baja SAE Telemetry</div>
-          <p class="proj-desc">Building data logging and telemetry visualization software to support real engineering analysis during off-road vehicle testing.</p>
+          <div class="proj-name">Paper Mill Simulation</div>
+          <p class="proj-desc">A data-driven simulator for studying how a mill responds to changing inputs. Python handles model fitting, validation, and scenario runs, while PLC software provides an operator-facing view.</p>
         </div>
         <div class="proj-card">
           <div class="proj-num">P — 02</div>
-          <div class="proj-name">Robotics Vision &amp; Controls</div>
-          <p class="proj-desc">Autonomous robotics software involving visual target detection, PID tuning, AprilTag positioning, and trajectory calculations.</p>
+          <div class="proj-name">APACS to OpenPLC Conversion</div>
+          <p class="proj-desc">A conversion pipeline that translates legacy APACS control logic into OpenPLC function block diagrams for review, testing, and simulation work.</p>
         </div>
         <div class="proj-card">
           <div class="proj-num">P — 03</div>
-          <div class="proj-name">Cybersecurity Tooling</div>
-          <p class="proj-desc">Professional work involving Python, REST APIs, GitLab, and security-focused engineering in a cleared environment.</p>
+          <div class="proj-name">Baja SAE Telemetry</div>
+          <p class="proj-desc">A desktop application for replaying vehicle logs and plotting sensor channels so the team can compare runs, find anomalies, and understand what happened on track.</p>
         </div>
       </div>
     </section>
@@ -699,6 +723,7 @@
               <span class="pill hot">Python</span>
               <span class="pill hot">C++</span>
               <span class="pill hot">Java</span>
+              <span class="pill">JavaScript</span>
               <span class="pill">Spanish</span>
             </div>
           </div>
@@ -709,18 +734,21 @@
               <span class="pill">Git</span>
               <span class="pill">REST APIs</span>
               <span class="pill">GitLab</span>
+              <span class="pill">Docker</span>
               <span class="pill">SCRUM / Agile</span>
               <span class="pill">Telemetry</span>
             </div>
           </div>
 
           <div class="skill-section">
-            <div class="skill-section-label">Domains</div>
+            <div class="skill-section-label">Engineering</div>
             <div class="skill-pills">
-              <span class="pill">Cybersecurity</span>
+              <span class="pill">Process Control</span>
+              <span class="pill">System Identification</span>
+              <span class="pill">OpenPLC</span>
+              <span class="pill">APACS</span>
+              <span class="pill">Modbus</span>
               <span class="pill">Robotics</span>
-              <span class="pill">Malware Analysis</span>
-              <span class="pill">Embedded Systems</span>
             </div>
           </div>
         </div>
@@ -736,8 +764,8 @@
             <div class="cert-org">Microsoft Technology Associate · Apr 2022</div>
           </div>
           <div class="cert">
-            <div class="cert-name">Flag Marshal · FIA World Endurance Championship</div>
-            <div class="cert-org">Circuit of the Americas · Sep 2025</div>
+            <div class="cert-name">Business Foundations Program</div>
+            <div class="cert-org">McCombs School of Business</div>
           </div>
         </div>
       </div>
@@ -746,7 +774,7 @@
     <div class="contact-bar reveal" id="contact">
       <div>
         <h2 class="contact-headline">Let’s<br><em>connect.</em></h2>
-        <p class="contact-sub">Open to conversations about engineering, software, cybersecurity, robotics, and opportunities to keep learning while contributing to real projects.</p>
+        <p class="contact-sub">Have a role, project, or technical problem where my background fits? Send me a note.</p>
       </div>
       <div class="contact-links">
         <a class="clink" href="mailto:agrinmanriv@gmail.com">
@@ -802,6 +830,135 @@
         setTimeout(() => el.classList.add('in-view'), 40 + i * 45);
       });
     });
+
+    (() => {
+      const canvas = document.getElementById('ascii-field');
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const finePointer = window.matchMedia('(pointer: fine)').matches;
+      if (!canvas || reduceMotion || !finePointer) return;
+
+      const ctx = canvas.getContext('2d');
+      if (!ctx) return;
+
+      const denseGlyphs = ['#', '%', '@', '&'];
+      const mediumGlyphs = ['+', '*', '=', 'x'];
+      const lightGlyphs = ['.', ':', '·', '`'];
+      const cells = [];
+      const pointer = { x: -1000, y: -1000, lastX: -1000, lastY: -1000, speed: 0, active: false };
+      const spacing = 20;
+      const radius = 132;
+      let width = 0;
+      let height = 0;
+      let dpr = 1;
+      let lastTime = performance.now();
+
+      function seededIndex(x, y, length, offset = 0) {
+        const value = Math.abs(Math.sin((x + 17) * 12.9898 + (y + 31) * 78.233 + offset) * 43758.5453);
+        return Math.floor((value % 1) * length);
+      }
+
+      function buildGrid() {
+        cells.length = 0;
+        const columns = Math.ceil(width / spacing) + 1;
+        const rows = Math.ceil(height / spacing) + 1;
+
+        for (let row = 0; row < rows; row += 1) {
+          for (let column = 0; column < columns; column += 1) {
+            const x = column * spacing + (row % 2) * spacing * 0.5;
+            const y = row * spacing;
+            cells.push({
+              x,
+              y,
+              energy: 0,
+              dense: denseGlyphs[seededIndex(column, row, denseGlyphs.length)],
+              medium: mediumGlyphs[seededIndex(column, row, mediumGlyphs.length, 11)],
+              light: lightGlyphs[seededIndex(column, row, lightGlyphs.length, 23)]
+            });
+          }
+        }
+      }
+
+      function resize() {
+        width = window.innerWidth;
+        height = window.innerHeight;
+        dpr = Math.min(window.devicePixelRatio || 1, 1.75);
+        canvas.width = Math.round(width * dpr);
+        canvas.height = Math.round(height * dpr);
+        canvas.style.width = `${width}px`;
+        canvas.style.height = `${height}px`;
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        buildGrid();
+      }
+
+      function handleMove(event) {
+        const dx = pointer.active ? event.clientX - pointer.lastX : 0;
+        const dy = pointer.active ? event.clientY - pointer.lastY : 0;
+        pointer.speed = Math.min(28, Math.hypot(dx, dy));
+        pointer.x = event.clientX;
+        pointer.y = event.clientY;
+        pointer.lastX = event.clientX;
+        pointer.lastY = event.clientY;
+        pointer.active = true;
+
+        const movementBoost = 0.68 + Math.min(1, pointer.speed / 18) * 0.32;
+        for (const cell of cells) {
+          const distance = Math.hypot(cell.x - pointer.x, cell.y - pointer.y);
+          if (distance < radius) {
+            const proximity = 1 - distance / radius;
+            cell.energy = Math.max(cell.energy, proximity * movementBoost);
+          }
+        }
+      }
+
+      function draw(now) {
+        const delta = Math.min(40, now - lastTime);
+        lastTime = now;
+        ctx.clearRect(0, 0, width, height);
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+
+        for (const cell of cells) {
+          cell.energy = Math.max(0, cell.energy - delta * 0.00062);
+          if (cell.energy < 0.015) continue;
+
+          let glyph;
+          let size;
+          let alpha;
+
+          if (cell.energy > 0.66) {
+            glyph = cell.dense;
+            size = 12;
+            alpha = 0.14 + cell.energy * 0.22;
+          } else if (cell.energy > 0.28) {
+            glyph = cell.medium;
+            size = 10;
+            alpha = 0.075 + cell.energy * 0.16;
+          } else {
+            glyph = cell.light;
+            size = 8;
+            alpha = 0.028 + cell.energy * 0.13;
+          }
+
+          ctx.font = `${size}px ${getComputedStyle(document.documentElement).getPropertyValue('--mono') || 'monospace'}`;
+          ctx.fillStyle = `rgba(249, 146, 82, ${alpha})`;
+          ctx.fillText(glyph, cell.x, cell.y);
+        }
+
+        pointer.speed *= 0.86;
+        requestAnimationFrame(draw);
+      }
+
+      window.addEventListener('resize', resize, { passive: true });
+      window.addEventListener('pointermove', handleMove, { passive: true });
+      document.documentElement.addEventListener('mouseleave', () => {
+        pointer.active = false;
+        pointer.x = -1000;
+        pointer.y = -1000;
+      });
+
+      resize();
+      requestAnimationFrame(draw);
+    })();
   </script>
 </body>
 </html>
