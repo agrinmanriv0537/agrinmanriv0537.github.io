@@ -85,7 +85,7 @@
         ctx.textBaseline = 'middle';
 
         for (const cell of cells) {
-          cell.energy = Math.max(0, cell.energy - delta * 0.00062);
+          cell.energy = Math.max(0, cell.energy - delta * 0.0004);
           if (cell.energy < 0.015) continue;
 
           let glyph;
@@ -95,15 +95,15 @@
           if (cell.energy > 0.66) {
             glyph = cell.dense;
             size = 12;
-            alpha = 0.14 + cell.energy * 0.22;
+            alpha = 0.2 + cell.energy * 0.3;
           } else if (cell.energy > 0.28) {
             glyph = cell.medium;
             size = 10;
-            alpha = 0.075 + cell.energy * 0.16;
+            alpha = 0.14 + cell.energy * 0.28;
           } else {
             glyph = cell.light;
             size = 8;
-            alpha = 0.028 + cell.energy * 0.13;
+            alpha = 0.06 + cell.energy * 0.2;
           }
 
           ctx.font = `${size}px ${getComputedStyle(document.documentElement).getPropertyValue('--mono') || 'monospace'}`;
